@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/noteItem"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -10,12 +10,21 @@
         android:layout_height="60dp"
         android:id="@+id/image"
         android:layout_gravity="center_vertical"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/image"
+        android:layout_toEndOf="@+id/image"
+        android:layout_centerVertical="true"
+        android:textColor="#555"
+        android:enabled="false" />
 
     <Button
         android:id="@+id/deleteButton"
@@ -24,5 +33,9 @@
         android:gravity="end"
         android:layout_gravity="center_vertical"
         android:background="@mipmap/trash"
-        style="@style/Theme.AppCompat.Light" />
-</LinearLayout>
+        style="@style/Theme.AppCompat.Light"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp" />
+</RelativeLayout>
