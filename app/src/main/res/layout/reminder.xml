@@ -23,8 +23,18 @@
         android:layout_toRightOf="@+id/image"
         android:layout_toEndOf="@+id/image"
         android:layout_centerVertical="true"
-        android:textColor="#555"
+        android:textColor="#333"
         android:enabled="false" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:layout_margin="10dp"
+        android:textColor="#999"
+        android:enabled="false"
+        android:layout_below="@+id/text"
+        android:layout_toLeftOf="@+id/deleteButton"
+        android:layout_toStartOf="@+id/deleteButton" />
 
     <Button
         android:id="@+id/deleteButton"

@@ -1,5 +1,6 @@
 package com.example.robbiebowman.whenigethome;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,7 +34,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void saveReminder(Reminder reminder) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(String.format("INSERT INTO %s (%s, %s) VALUES ('%s', %s)", REMINDER_TABLE, REMINDER_TABLE_TEXT, REMINDER_TABLE_TIMESTAMP, reminder.getText(), reminder.getDateTime().toDate().getTime()));
+        ContentValues insertMap = new ContentValues();
+        insertMap.put(REMINDER_TABLE_TEXT, reminder.getText());
+        insertMap.put(REMINDER_TABLE_TIMESTAMP, reminder.getDateTime().toDate().getTime());
+        db.insert(REMINDER_TABLE, null, insertMap);
     }
 
     public List<Reminder> getReminders() {
@@ -44,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Reminder reminder = new Reminder();
             reminder.setId(resultCursor.getInt(resultCursor.getColumnIndex(REMINDER_TABLE_ID)));
             reminder.setText(resultCursor.getString(resultCursor.getColumnIndex(REMINDER_TABLE_TEXT)));
-            reminder.setDateTime(new DateTime(resultCursor.getInt(resultCursor.getColumnIndex(REMINDER_TABLE_TIMESTAMP))));
+            reminder.setDateTime(new DateTime(resultCursor.getLong(resultCursor.getColumnIndex(REMINDER_TABLE_TIMESTAMP))));
             reminders.add(reminder);
         }
         return reminders;
@@ -53,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void removeReminder(Reminder reminder) {
         int idToRemove = reminder.getId();
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(String.format("DELETE FROM %s WHERE %s = %s", REMINDER_TABLE, REMINDER_TABLE_ID, idToRemove));
+        db.delete(REMINDER_TABLE, REMINDER_TABLE_ID+"=?", new String[] {String.valueOf(idToRemove)});
     }
 
     @Override
